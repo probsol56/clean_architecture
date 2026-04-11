@@ -6,6 +6,6 @@ public class CreateOrderHandler(IOrderRepository orderRepository, IUnitOfWork un
 {
     public async Task<Guid> HandleAsync(CreateOrderCommand request, CancellationToken cancellationToken)
     {
-        
+        throw new NotImplementedException();
     }
 }
