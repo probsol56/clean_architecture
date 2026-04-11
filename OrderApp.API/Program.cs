@@ -1,4 +1,3 @@
-using OrderApp.Application.Orders.Query;
 using OrderApp.Application;
 using OrderApp.Infrastructure;
 
