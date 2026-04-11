@@ -1,3 +1,5 @@
+using OrderApp.Domain.Entities;
+
 namespace OrderApp.Application.Common.Interfaces;
 
 public interface ICategoryRepository

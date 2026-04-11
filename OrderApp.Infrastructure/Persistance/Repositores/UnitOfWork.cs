@@ -3,15 +3,17 @@ using OrderApp.Infrastructure.Persistance;
 
 public class UnitOfWork : IUnitOfWork
 {
-    private readonly ApplicationDbContext _context;
+    private readonly AppDbContext _context;
+    public IProductRepository Products { get; }
+    public ICategoryRepository Categories { get; }
 
-    public UnitOfWork(ApplicationDbContext context)
+    public UnitOfWork(AppDbContext context, IProductRepository productRepository, ICategoryRepository categoryRepository)
     {
         _context = context;
+        Products = productRepository;
+        Categories = categoryRepository;
     }
 
-    public IProductRepository Products => new ProductRepository(_context);
-    public ICategoryRepository Categories => new CategoryRepository(_context);
     public Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
     {
         return _context.SaveChangesAsync(cancellationToken);
