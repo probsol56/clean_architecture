@@ -1,9 +1,14 @@
+using System.Reflection;
+using FluentValidation;
+using MediatR;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using OrderApp.Application.Common.Interfaces;
 using OrderApp.Infrastructure.Persistance;
 using OrderApp.Infrastructure.Persistance.Repositores;
+
+namespace OrderApp.Infrastructure;
 
 public static class DependencyInjection
 {
@@ -15,6 +20,14 @@ public static class DependencyInjection
                 configuration.GetConnectionString("DefaultConnection")
             )
         );
+        services.AddMediatR(cfg =>
+           cfg.RegisterServicesFromAssembly(Assembly.GetExecutingAssembly()));
+        services.AddValidatorsFromAssembly(Assembly.GetExecutingAssembly());
+
+        // Pipeline: প্রতিটা request-এ validation আগে চলবে
+        services.AddTransient(
+            typeof(IPipelineBehavior<,>),
+            typeof(ValidationBehavior<,>));
 
 
         // Repository
