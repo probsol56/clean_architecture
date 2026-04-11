@@ -1,6 +1,6 @@
 namespace OrderApp.Application.Common.Interfaces;
 
-public interface IUnitOfWork
+public interface IUnitOfWork:IDisposable
 {
 
     IProductRepository Products { get; }

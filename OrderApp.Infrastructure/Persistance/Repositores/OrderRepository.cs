@@ -1,5 +1,6 @@
 using OrderApp.Application.Common.Interfaces;
 using OrderApp.Domain.Entities;
+using Microsoft.EntityFrameworkCore;
 
 namespace OrderApp.Infrastructure.Persistance.Repositores;
 
