@@ -13,12 +13,12 @@ public class CategoryRepository : ICategoryRepository
 
     public async Task<Category?> GetByIdAsync(Guid id, CancellationToken cancellationToken)
     {
-        return await _context.Categories.FindAsync(new object[] { id }, cancellationToken);
+        return await _context.Categories.FirstOrDefaultAsync(x => x.Id == id, cancellationToken);
     }
 
     public async Task<IEnumerable<Category>> GetAllAsync(CancellationToken cancellationToken)
     {
-        return await _context.Categories.ToListAsync(cancellationToken);
+        return await _context.Categories.AsNoTracking.ToListAsync(cancellationToken);
     }
 
     public async Task AddAsync(Category category, CancellationToken cancellationToken)
