@@ -3,15 +3,8 @@ using OrderApp.Domain.Entities;
 
 namespace OrderApp.Infrastructure.Persistance.Repositores;
 
-public class CategoryRepository : ICategoryRepository
+public class CategoryRepository(AppDbContext _context) : ICategoryRepository
 {
-    private readonly AppDbContext _context;
-
-    public CategoryRepository(AppDbContext context)
-    {
-        _context = context;
-    }
-
     public async Task<Category?> GetByIdAsync(Guid id, CancellationToken cancellationToken)
     {
         return await _context.Categories.FirstOrDefaultAsync(x => x.Id == id, cancellationToken);
