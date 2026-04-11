@@ -5,23 +5,15 @@ using OrderApp.Application.DTOs;
 
 namespace OrderApp.Application.Orders.Query;
 
-public class GetOrderByIdHandler : IRequestHandler<GetOrderById, OrderDto?>
+public class GetOrderByIdHandler(IOrderRepository orderRepository) : IRequestHandler<GetOrderById, OrderDto?>
 {
-    private readonly IOrderRepository _orderRepository;
-
-    public GetOrderByIdHandler(IOrderRepository orderRepository)
-    {
-        _orderRepository = orderRepository;
-    }
+    private readonly IOrderRepository _orderRepository = orderRepository;
 
     public async Task<OrderDto?> Handle(GetOrderById request, CancellationToken cancellationToken)
     {
         var order = await _orderRepository.GetByIdAsync(request.Id, cancellationToken);
-        if (order == null)
-        {
-            throw new NotFoundException($"Order {request.Id} not found");
-        }
-
-        return new OrderDto(order.Id, order.CustomerId, order.TotalAmount.Amount, order.Status.ToString());
+        return order == null
+            ? throw new NotFoundException($"Order {request.Id} not found")
+            : new OrderDto(order.Id, order.CustomerId, order.TotalAmount.Amount, order.Status.ToString());
     }
 }
