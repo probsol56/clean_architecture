@@ -1,6 +1,3 @@
-using System.Reflection;
-using FluentValidation;
-using MediatR;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -20,15 +17,7 @@ public static class DependencyInjection
                 configuration.GetConnectionString("DefaultConnection")
             )
         );
-        services.AddMediatR(cfg =>
-           cfg.RegisterServicesFromAssembly(Assembly.GetExecutingAssembly()));
-        services.AddValidatorsFromAssembly(Assembly.GetExecutingAssembly());
-
-        // Pipeline: প্রতিটা request-এ validation আগে চলবে
-        services.AddTransient(
-            typeof(IPipelineBehavior<,>),
-            typeof(ValidationBehavior<,>));
-
+        
 
         // Repository
         services.AddScoped<IProductRepository, ProductRepository>();
