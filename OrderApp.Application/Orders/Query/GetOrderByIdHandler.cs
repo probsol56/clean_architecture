@@ -1,10 +1,11 @@
 using MediatR;
+using OrderApp.Application.Common.Exceptions;
 using OrderApp.Application.Common.Interfaces;
 using OrderApp.Application.DTOs;
 
 namespace OrderApp.Application.Orders.Query;
 
-public class GetOrderByIdHandler : IRequestHandler<GetOrderByQuery, OrderDto?>
+public class GetOrderByIdHandler : IRequestHandler<GetOrderById, OrderDto?>
 {
     private readonly IOrderRepository _orderRepository;
 
@@ -13,7 +14,7 @@ public class GetOrderByIdHandler : IRequestHandler<GetOrderByQuery, OrderDto?>
         _orderRepository = orderRepository;
     }
 
-    public async Task<OrderDto?> Handle(GetOrderByQuery request, CancellationToken cancellationToken)
+    public async Task<OrderDto?> Handle(GetOrderById request, CancellationToken cancellationToken)
     {
         var order = await _orderRepository.GetByIdAsync(request.Id, cancellationToken);
         if (order == null)

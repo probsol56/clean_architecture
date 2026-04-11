@@ -3,4 +3,4 @@ using OrderApp.Application.DTOs;
 
 namespace OrderApp.Application.Orders.Query;
 
-public record GetOrderByQuery(Guid Id) : IRequest<OrderDto?>;
+public record GetOrderById(Guid Id) : IRequest<OrderDto?>;

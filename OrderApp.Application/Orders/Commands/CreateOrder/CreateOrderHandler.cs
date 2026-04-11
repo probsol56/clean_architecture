@@ -1,11 +1,15 @@
+using MediatR;
 using OrderApp.Application.Common.Interfaces;
 
 namespace OrderApp.Application.Orders.Commands.CreateOrder;
 
-public class CreateOrderHandler(IOrderRepository orderRepository, IUnitOfWork unitOfWork)
+public class CreateOrderHandler
+    : IRequestHandler<CreateOrderCommand, Guid>  
 {
-    public async Task<Guid> HandleAsync(CreateOrderCommand request, CancellationToken cancellationToken)
-    {
+    public  Task<Guid> Handle(  // HandleAsync না, Handle হবে
+        CreateOrderCommand request,
+        CancellationToken cancellationToken)
+    { 
         throw new NotImplementedException();
-    }
+     }
 }
